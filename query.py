@@ -72,4 +72,5 @@ class Query(object):
                 log.error('Error data when processing trade: %s', self.name)
                 log.exception(e)
         fp.close()
+        cursor.close()
 

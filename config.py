@@ -29,7 +29,8 @@ class Settings(object):
             'password': '',
         }
         self.sqls[trade] = {
-            'test.csv': ['SELECT * FROM comments.api_comment WHERE comment_date >=%s', (time.strftime('%Y-%m-%d'), )]
+            'test1.csv': ['SELECT * FROM comments.api_comment WHERE comment_date >=%s', (time.strftime('%Y-%m-%d'), )],
+            'test2.csv': ['SELECT * FROM comments.api_comment WHERE comment_date >=%s'],
         }
 
         return
