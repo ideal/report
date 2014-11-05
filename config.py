@@ -30,7 +30,7 @@ class Settings(object):
         }
         self.sqls[trade] = {
             'test1.csv': ['SELECT * FROM comments.api_comment WHERE comment_date >=%s', (time.strftime('%Y-%m-%d'), )],
-            'test2.csv': ['SELECT * FROM comments.api_comment WHERE comment_date >=%s'],
+            'test2.csv': ['SELECT * FROM comments.api_comment'],
         }
 
         return
