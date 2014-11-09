@@ -13,8 +13,8 @@ class Settings(object):
     databases = odict()
     sqls      = odict()
 
-    LOG_FILE = os.getenv('HOME') + '/var/log/report.log'
-    DATA_DIR = os.getenv('HOME') + '/var/data/report/' + time.strftime('%Y-%m-%d') + '/'
+    LOG_FILE = os.path.expanduser('~/var/log/report.log')
+    DATA_DIR = os.path.expanduser('~/var/data/report/') + time.strftime('%Y-%m-%d') + '/'
 
     recipients = ['idealities@gmail.com']
 
