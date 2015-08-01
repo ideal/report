@@ -65,6 +65,12 @@ class Query(object):
             return str(d)
 
         fp = open(filedir + '/' + output_filename, 'w')
+        try:
+            fp.write((','.join(map(_strify, cursor.column_names))) + '\n')
+        except Exception as e:
+            log.error('Error data when processing trade: %s', self.name)
+            log.exception(e)
+
         for data in cursor:
             try:
                 fp.write((','.join(map(_strify, data))) + '\n')
