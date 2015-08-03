@@ -49,7 +49,7 @@ class Query(object):
 
         cursor = self.conn.cursor()
         try:
-            cursor.execute(sql, data)
+            results = cursor.execute(sql, data, multi=True)
         except Exception as e:
             log.error('Error when processing trade: %s', self.name)
             log.exception(e)
@@ -60,23 +60,25 @@ class Query(object):
                 return d
 
             if isinstance(d, unicode):
-                return d.encode('gbk')
+                return d.encode('gb18030')
 
             return str(d)
 
         fp = open(filedir + '/' + output_filename, 'w')
-        try:
-            fp.write((','.join(map(_strify, cursor.column_names))) + '\n')
-        except Exception as e:
-            log.error('Error data when processing trade: %s', self.name)
-            log.exception(e)
-
-        for data in cursor:
+        for result in results:
+            if not result.with_rows:
+                continue;
             try:
-                fp.write((','.join(map(_strify, data))) + '\n')
+                fp.write((','.join(map(_strify, result.column_names))) + '\n')
             except Exception as e:
                 log.error('Error data when processing trade: %s', self.name)
                 log.exception(e)
+
+            for data in result:
+                try:
+                    fp.write((','.join(map(_strify, data))) + '\n')
+                except Exception as e:
+                    log.error('Error data when processing trade: %s', self.name)
+                    log.exception(e)
         fp.close()
         cursor.close()
-
